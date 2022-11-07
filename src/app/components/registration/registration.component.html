@@ -1,25 +1,33 @@
-<form id="form">
-  <label>
-    Name
-    <input type="text" placeholder="Erick Veríssimo" name="name" required />
-  </label>
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label> Name </mat-label>
+    <input type="text" formControlName="name" matInput/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label> Phone </mat-label>
+    <input type="text" formControlName="phone" matInput minlength="9" />
+  </mat-form-field>
 
-  <br />
-  <br />
+  <br>
 
-  <label>
-    Phone
-    <input
-      type="tel"
-      placeholder="91234-5678"
-      name="phone"
-      required
-    />
-  </label>
-
-  <br />
-  <br />
+  <button class="clear" (click)="clear()" >Clear</button>
+  <button (click)="saveData()"  >Save</button>
 </form>
 
-<button class="clear" (click)="clear()">Clear</button>
-<button>Save</button>
+<br>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="announceSortChange($event)" >
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name" > Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by phone" > Phone </th>
+    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
