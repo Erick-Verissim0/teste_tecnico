@@ -1,9 +1,10 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { DataSource } from '@angular/cdk/collections';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 export interface UserData {
   name: string;
@@ -18,22 +19,19 @@ export interface UserData {
 export class RegistrationComponent implements AfterViewInit {
   form!: FormGroup;
 
-  displayedColumns: string[] = ['name', 'phone'];
+  displayedColumns: any[] = ['name', 'phone'];
 
   dataSource: UserData[] = [];
 
-  @ViewChild(MatSort) sort: MatSort;
-
-  constructor(private liveAnnouncer: LiveAnnouncer) {
+  constructor(private _liveAnnouncer: LiveAnnouncer) {
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required),
       phone: new FormControl(null, Validators.required),
     });
-
     this.dataSource = [];
   }
 
-  ngOnInit(): void {}
+  @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   clear(): void {
     this.form.reset();
@@ -52,13 +50,28 @@ export class RegistrationComponent implements AfterViewInit {
 
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
-      this.liveAnnouncer.announce(`Sorted ${sortState.direction} final`);
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
+      console.log(' if ');
     } else {
-      this.liveAnnouncer.announce('Sorting cleared');
+      this._liveAnnouncer.announce('Sorting cleared');
+      console.log(' else ');
     }
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
+  // SORT
+
+  ngAfterViewInit() {
+    this.dataSource.sort((a, b) => (a.name < b.name ? -1 : 1));
+    console.log('to aqui');
   }
+
+  // SEARCH
+
+  applySearch(event: Event) {
+    const searchValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = searchValue.trim().toLowerCase();
+  }
+
+// DELETE (tá faltando fazer)
+
 }
