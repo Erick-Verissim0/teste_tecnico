@@ -8,7 +8,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 export interface UserData {
   name: string;
-  phone: number;
+  phone: string;
 }
 
 @Component({
@@ -22,6 +22,8 @@ export class RegistrationComponent implements AfterViewInit {
   displayedColumns: any[] = ['name', 'phone'];
 
   dataSource: UserData[] = [];
+
+  initialDataSource: UserData[] = [];
 
   constructor(private _liveAnnouncer: LiveAnnouncer) {
     this.form = new FormGroup({
@@ -69,9 +71,15 @@ export class RegistrationComponent implements AfterViewInit {
 
   applySearch(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = searchValue.trim().toLowerCase();
+    console.log(searchValue);
+    this.dataSource = this.initialDataSource;
+    if (searchValue)
+      this.dataSource = this.dataSource.filter(
+        (value) =>
+          value.name.startsWith(searchValue.trim().toLowerCase()) ||
+          value.phone.startsWith(searchValue.trim().toLowerCase())
+      );
   }
 
-// DELETE (tá faltando fazer)
-
+  // DELETE (tá faltando fazer)
 }
