@@ -4,72 +4,79 @@
       <img src="../../../assets/img/logo.png" alt="logo" />
       <h1>Fiscon</h1>
     </div>
-    <h2>Register Here</h2>
-    <form [formGroup]="form">
-      <mat-form-field appearance="outline">
-        <mat-label> Name </mat-label>
-        <input type="text" formControlName="name" matInput />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label> Phone </mat-label>
-        <input type="text" formControlName="phone" matInput minlength="9" />
-      </mat-form-field>
+    <div class="divForm">
+      <h2>Register Here</h2>
+      <form [formGroup]="form">
+        <mat-form-field appearance="outline">
+          <mat-label> Name </mat-label>
+          <input type="text" formControlName="name" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label> Phone </mat-label>
+          <input type="text" formControlName="phone" matInput minlength="9" />
+        </mat-form-field>
 
-      <br />
+        <br />
 
-      <button class="clear" (click)="clear()">Clear</button>
-      <button (click)="saveData()">Save</button>
-    </form>
+        <button (click)="clear()">Clear</button>
+        <button class="saveData" (click)="saveData()">Save</button>
+      </form>
+    </div>
   </div>
 
   <br />
 
-  <div class="search">
-    <mat-form-field appearance="standard" class="search">
-      <mat-label> Search </mat-label>
-      <input
-        matInput
-        (keyup)="applySearch($event)"
-        placeholder="Search columns"
-        #input
-      />
-    </mat-form-field>
+  <div class="table">
+    <div class="search">
+      <mat-form-field class="search" appearance="standard" class="search">
+        <mat-label class="search"> Search </mat-label>
+        <input
+          class="search"
+          matInput
+          (keyup)="applySearch($event)"
+          placeholder="Search columns"
+          #input
+        />
+      </mat-form-field>
+    </div>
+
+    <br />
+
+    <div class="tableDiv">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="name">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by name"
+          >
+            Name
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by phone"
+          >
+            Phone
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
   </div>
-
-  <br />
-
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    matSort
-    (matSortChange)="announceSortChange($event)"
-    class="mat-elevation-z8"
-  >
-    <ng-container matColumnDef="name">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by name"
-      >
-        Name
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="phone">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by phone"
-      >
-        Phone
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
 </div>
