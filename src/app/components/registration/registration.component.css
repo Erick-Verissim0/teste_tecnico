@@ -1,23 +1,21 @@
 .total {
   display: flex;
-  justify-content: space-between;
   background-color: white;
-  min-height: 550px;
-  height: auto;
-  min-width: 700px;
-  width: auto;
+  max-height: 667px;
 }
 
 .divForm {
-  margin-left: 1.5rem;
+  padding-right: 4rem;
+  padding-left: 1.5rem;
 }
 
 .logo {
+  background-color: white;
   display: flex;
   text-align: center;
   padding-bottom: 3rem;
-  margin: 0.6rem;
-  margin-top: 2rem;
+  padding: 0.6rem;
+  padding-top: 1.5rem;
 }
 
 img {
@@ -33,10 +31,10 @@ h1 {
 h2 {
   display: flex;
   justify-content: center;
-  margin-top: 0.7rem;
+  padding-top: 0.5rem;
   font-family: 'Times New Roman';
   font-size: 2rem;
-  margin-bottom: 1.8rem;
+  padding-bottom: 1.3rem;
 }
 
 form {
@@ -48,10 +46,10 @@ form {
 }
 
 button {
-  padding: .7rem 1rem;
+  padding: 0.7rem 1rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
-  font-size: .9rem;
+  font-size: 0.9rem;
   background-color: red;
   color: white;
   border: none;
@@ -69,11 +67,11 @@ button:hover {
   background-color: #328fad;
 }
 
-
 /* table */
 
 .table {
-  margin-top: 7.6rem;
+  background-color: #deeaf0;
+  padding-top: 7.6rem;
 }
 
 .search {
@@ -81,20 +79,57 @@ button:hover {
 }
 
 table {
+  background-color: #ecf1f3;
   width: 80%;
-  padding: .5rem 1.2rem;
+  padding: 0.5rem 1.2rem;
   margin: 0.5rem 3.2rem;
   margin-top: 1.8rem;
 }
 
 .tableDiv {
-  margin-right: 2.3rem;
+  margin-right: 2rem;
   margin-top: -1.8rem;
   color: white;
 }
 
 /* responsiveness */
 
-@media screen {
-  
+@media screen and (max-width: 750px) {
+  .total {
+    flex-direction: column;
+    min-width: 500px;
+    margin: 0;
+  }
+  .divForm {
+    margin: 0;
+  }
+  .table {
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .total {
+    min-width: 450px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .total {
+    min-width: 380px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .total {
+    min-width: 350px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .total {
+    min-width: 200px;
+  }
 }
